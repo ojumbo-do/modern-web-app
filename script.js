@@ -34,3 +34,27 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+//////////////////////////////
+//Practise codes
+
+// Adding element to html
+// const message = document.createElement('div');
+const header = document.querySelector('.header');
+// message.classList.add('cookie-message');
+
+// message.innerHTML =
+//   'Note: We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+// header.prepend(message);
+
+// // deleting elements from html
+// document
+//   .querySelector('.btn--close-cookie')
+//   .addEventListener('click', function () {
+//     message.remove();
+//   });
+
+// using insert adjacent
+const message = `<div class="cookie-message">Note: We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button></div>`;
+
+header.insertAdjacentHTML('beforebegin', message);
