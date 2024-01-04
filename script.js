@@ -1,12 +1,17 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
+///////////////////////////////////////////////////////////////////
+// Selections
 
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+///////////////////////////////////////////////////////////////////
+// Modal window
 
 //show modal window
 const openModal = function (e) {
@@ -35,12 +40,70 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+///////////////////////////////////////////////////////////////////
+//Smooth Scroll Functionality
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log(e.target.getBoundingClientRect);
+
+  console.log('Current scroll X/Y', window.pageXOffset, window.pageYOffset);
+
+  console.log(
+    'height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+
+  // Old way of using scroll
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth'
+  // });
+
+  //modern way of implementing smooth scroll
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+///////////////////////////////////////////////////////////////////
+//Page navigation
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+//Using even deligation/bubling
+//1. add event listener to common parent
+//2. determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  // console.log(e.target);
+  //matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+///////////////////////////////////////////////////
 //////////////////////////////
 //Practise codes
 
 // Adding element to html
 // const message = document.createElement('div');
-const header = document.querySelector('.header');
+// const header = document.querySelector('.header');
 // message.classList.add('cookie-message');
 
 // message.innerHTML =
@@ -52,9 +115,57 @@ const header = document.querySelector('.header');
 //   .querySelector('.btn--close-cookie')
 //   .addEventListener('click', function () {
 //     message.remove();
+//     message.parentElement.removeChild(message);
 //   });
 
 // using insert adjacent
-const message = `<div class="cookie-message">Note: We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button></div>`;
+// const message = `<div class="cookie-message">Note: We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button></div>`;
 
-header.insertAdjacentHTML('beforebegin', message);
+// header.insertAdjacentHTML('beforebegin', message);
+
+//styles attributes and classes
+// message.style.backgroundColor = '#37383d';
+// message.style.width = '120%';
+
+//manupulating CSS
+// console.log(getComputedStyle(message).color);
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+
+//accessing CSS document
+// document.documentElement.style.setProperty('--color-primary', 'cyan');
+
+// //attributes
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.src);
+// console.log(logo.alt);
+
+///////////////////////////////
+// event handlers
+// mouseenter
+
+// const hi = document.querySelector('h1');
+
+// hi.addEventListener('mouseenter', function (e) {
+//   alert('addEventLister: Great! you are reading the heading :)');
+// });
+
+////////////////////////////////
+// Event propagation Bubling and capturing
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+
+// console.log(randomColor(0, 255));
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+// });
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+// });
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+// });
