@@ -149,11 +149,31 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 ///////////////////////////////////////////////////////////////////
 //Sticky Navigation
-const initialCoords = section1.getBoundingClientRect();
-window.addEventListener('scroll', function () {
-  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+// const initialCoords = section1.getBoundingClientRect();
+// window.addEventListener('scroll', function () {
+//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+//sticky navigation using intersection observer//the better way
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height; //getting the dynamic nav bar height
+
+const stickyNav = function (entries) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
 });
+headerObserver.observe(header);
+///////////////////////////////////////////////////////////////////
+//Revealing elements/sections on scroll
 
 ///////////////////////////////////////////////////
 //////////////////////////////
