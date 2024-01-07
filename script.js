@@ -255,6 +255,15 @@ const prevSlide = function () {
 btnRight.addEventListener('click', nextSlide);
 btnLeft.addEventListener('click', prevSlide);
 
+document.addEventListener('keydown', function (e) {
+  // if (e.key === 'ArrowLeft') prevSlide();
+  // if (e.key === 'ArrowRight') nextSlide();
+
+  //using short circuiting (more efficient)
+  e.key === 'ArrowLeft' && prevSlide();
+  e.key === 'ArrowRight' && nextSlide();
+});
+
 ///////////////////////////////////////////////////
 //////////////////////////////
 //Practise codes
