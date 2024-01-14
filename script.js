@@ -378,3 +378,18 @@ slider();
 // document.querySelector('.nav').addEventListener('click', function (e) {
 //   this.style.backgroundColor = randomColor();
 // });
+
+//DOM lifecyle
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML Parsed and DOM tree built!', e);
+});
+
+window.addEventListener('load', function (e) {
+  console.log('Page fully loaded', e);
+});
+
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log(e);
+  e.returnValue = '';
+});
